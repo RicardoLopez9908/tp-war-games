@@ -19,7 +19,15 @@ ret
 proc initJuego 
     
     ;call PrintMap
+    mov dx, offset URSS
+    call print
     call establecerBase
+    
+    mov dx, offset URSS
+    call print
+    call establecerBase
+    
+    
     
         
     ret
@@ -77,7 +85,7 @@ proc input_coordenada
     call input_teclado
     call solo_numeros
     
-    cmp AL, '.'
+    cmp AL, 013
     jne CICLO
 ret         
 endp
@@ -107,8 +115,10 @@ proc input_teclado
  ret 
 endp
          
+URSS db 'URSS$'
+USA db 'USA$'
 iniciar_juego db 'Iniciar juego$'
-pedir_coordenadas_base db 'Ingrese la ubicacion de su base secreta$'
+pedir_coordenadas_base db '',10,13,'Ingrese la ubicacion de su base secreta$'
 pedir_coordenada_x db '',10,13,'Ingrese coordenada x: $'
 pedir_coordenada_y db '',10,13,'Ingrese coordenada y: $'
 
