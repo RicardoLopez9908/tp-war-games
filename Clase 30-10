@@ -1,0 +1,123 @@
+Mapeo de estructuras de control de flujo a lenguaje ensamblador
+
+(IF)
+
+*pseudocod.
+
+if var2 != 10
+	then var2= var2 + 1
+	else var2=1
+end if
+
+*assembly
+
+var2 db ?
+
+IF: 
+	cmp var2, 10
+	je ELSE
+
+THEN: 
+	inc var2
+	jmp END_IF
+
+ELSE: 
+	mov var2, 1
+
+END_IF:
+
+
+
+(WHILE)
+
+*pseudocod.
+
+c = 0
+
+while c<10
+	c = c + 1
+end while
+
+
+*assembly
+
+mov cx,0
+
+WHILE:
+
+	cmp cx,10
+
+	jae END_WHILE
+
+	inc cx
+
+	jmp WHILE
+
+END_WHILE:
+
+
+
+(REPEAT UNTIL)
+
+*pseudocod.
+
+a = 0
+c = 20
+
+REPEAT
+
+	A = A + C
+	C = C-1
+
+UNTIL C = 1
+
+*assembly
+
+mov ax, 0
+mov cx, 20
+
+REPEAT:
+	add ax, cx
+	dec cx
+
+	cmp cx,1
+	jne REPEAT
+
+UNTIL:
+
+
+(SWITCH / CASE)
+
+*pseudocod.
+
+case variable
+	1: a = a + b
+	8: a = a - b
+	default: a = 0
+end case
+
+*assembly
+
+variable db ? 
+
+cmp variable, 1
+je caso_1
+
+cmp variable, 8
+je caso_8
+
+jmp default
+
+caso1: 
+	mov al, b
+	add a, al
+	jmp endcase
+caso8:
+	mov al, b
+	sub a, al
+	jmp endcase
+
+default:
+	mov a,0
+
+endcase:
